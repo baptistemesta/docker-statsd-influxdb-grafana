@@ -40,12 +40,10 @@ RUN apt-get -y update && \
   net-tools \
   openssh-server \
   supervisor \
+  openjdk-8-jdk \
   wget && \
  curl -sL https://deb.nodesource.com/setup_7.x | bash - && \
  apt-get install -y nodejs
-
-# Configure Supervisord, SSH and base env
-COPY supervisord/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
 WORKDIR /root
 
@@ -94,6 +92,17 @@ COPY grafana/grafana.ini /etc/grafana/grafana.ini
 COPY grafana/dashboard.yaml /etc/grafana/provisioning/dashboards/dashboard.yaml
 COPY grafana/datasource.yaml /etc/grafana/provisioning/datasources/datasource.yaml
 COPY grafana/bonita-dashboard.json /var/lib/grafana/dashboards/bonita-dashboard.json
+
+# Add jmx trans
+RUN mkdir -p /var/lib/jmxtrans/lib
+RUN wget http://central.maven.org/maven2/org/jmxtrans/jmxtrans/270/jmxtrans-270-all.jar -O /var/lib/jmxtrans/lib/jmxtrans-all.jar
+RUN wget -q https://raw.githubusercontent.com/jmxtrans/jmxtrans/master/jmxtrans/jmxtrans.sh -O /var/lib/jmxtrans/jmxtrans.sh
+RUN chmod +x /var/lib/jmxtrans/jmxtrans.sh
+COPY jmxtrans/bonita-jmx.json /var/lib/jmxtrans/.
+
+
+# Configure Supervisord, SSH and base env
+COPY supervisord/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
 # Cleanup
 RUN apt-get clean && \

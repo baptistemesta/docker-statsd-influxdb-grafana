@@ -1,34 +1,4 @@
 {
-  "__inputs": [
-    {
-      "name": "influxdb",
-      "label": "influxdb",
-      "description": "",
-      "type": "datasource",
-      "pluginId": "influxdb",
-      "pluginName": "InfluxDB"
-    }
-  ],
-  "__requires": [
-    {
-      "type": "grafana",
-      "id": "grafana",
-      "name": "Grafana",
-      "version": "5.1.2"
-    },
-    {
-      "type": "panel",
-      "id": "graph",
-      "name": "Graph",
-      "version": "5.0.0"
-    },
-    {
-      "type": "datasource",
-      "id": "influxdb",
-      "name": "InfluxDB",
-      "version": "5.0.0"
-    }
-  ],
   "annotations": {
     "list": [
       {
@@ -45,7 +15,6 @@
   "editable": true,
   "gnetId": null,
   "graphTooltip": 0,
-  "id": null,
   "links": [],
   "panels": [
     {
@@ -85,11 +54,12 @@
       "steppedLine": false,
       "targets": [
         {
+          "$$hashKey": "object:122",
           "alias": "Pending Works",
           "groupBy": [
             {
               "params": [
-                "$__interval"
+                "1s"
               ],
               "type": "time"
             },
@@ -122,11 +92,12 @@
           "tags": []
         },
         {
+          "$$hashKey": "object:123",
           "alias": "Running works",
           "groupBy": [
             {
               "params": [
-                "$__interval"
+                "1s"
               ],
               "type": "time"
             },
@@ -159,11 +130,12 @@
           "tags": []
         },
         {
+          "$$hashKey": "object:124",
           "alias": "Throughput",
           "groupBy": [
             {
               "params": [
-                "$__interval"
+                "1s"
               ],
               "type": "time"
             },
@@ -396,5 +368,5 @@
   "timezone": "",
   "title": "Bonita",
   "uid": "1NZ00kHiz",
-  "version": 9
+  "version": 1
 }

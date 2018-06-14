@@ -1,0 +1,36 @@
+{
+    "servers" : [ {
+      "port" : "9010",
+      "host" : "192.168.1.63",
+      "alias": "bonita-1",
+      "runPeriodSeconds": 1,
+      "queries" : [ {
+        "outputWriters" : [
+        {
+          "@class" : "com.googlecode.jmxtrans.model.output.InfluxDbWriterFactory",
+          "url" : "http://localhost:8086/",
+          "database" : "telegraf",
+          "username" : "telegraf",
+          "password" : "telegraf"
+        } ],
+        "obj" : "java.lang:type=Memory",
+        "attr" : [ "HeapMemoryUsage", "NonHeapMemoryUsage" ],
+        "resultAlias" : "jvmMemory"
+      },
+      {
+        "outputWriters" : [
+        {
+          "@class" : "com.googlecode.jmxtrans.model.output.InfluxDbWriterFactory",
+          "url" : "http://localhost:8086/",
+          "database" : "telegraf",
+          "username" : "telegraf",
+          "password" : "telegraf"
+        } ],
+        "obj" : "Bonitasoft:type=Tenant,Tenant=1,name=works",
+        "attr" : [ "Pendings","Runnings","Throughput","TotalExecuted" ],
+        "resultAlias" : "worksTenant1"
+      }
+      ],
+      "numQueryThreads" : 1
+    } ]
+  }
