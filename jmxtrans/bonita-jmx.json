@@ -1,7 +1,7 @@
 {
     "servers" : [ {
-      "port" : "9010",
-      "host" : "192.168.1.63",
+      "port": "BONITA_PORT",
+      "host": "BONITA_HOST",
       "alias": "bonita-1",
       "runPeriodSeconds": 1,
       "queries" : [ {

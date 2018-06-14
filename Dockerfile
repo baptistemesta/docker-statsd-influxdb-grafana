@@ -16,6 +16,9 @@ ENV INFLUXDB_GRAFANA_PW datasource
 ENV MYSQL_GRAFANA_USER grafana
 ENV MYSQL_GRAFANA_PW grafana
 
+ENV BONITA_HOST localhost
+ENV BONITA_PORT 9010
+
 # Fix bad proxy issue
 COPY system/99fixbadproxy /etc/apt/apt.conf.d/99fixbadproxy
 
@@ -39,6 +42,7 @@ RUN apt-get -y update && \
   openssh-server \
   supervisor \
   openjdk-8-jdk \
+  sed \
   wget && \
  curl -sL https://deb.nodesource.com/setup_7.x | bash - && \
  apt-get install -y nodejs
@@ -84,7 +88,7 @@ RUN wget http://central.maven.org/maven2/org/jmxtrans/jmxtrans/270/jmxtrans-270-
 RUN wget -q https://raw.githubusercontent.com/jmxtrans/jmxtrans/master/jmxtrans/jmxtrans.sh -O /var/lib/jmxtrans/jmxtrans.sh
 RUN chmod +x /var/lib/jmxtrans/jmxtrans.sh
 COPY jmxtrans/bonita-jmx.json /var/lib/jmxtrans/.
-
+RUN sed -i "s/BONITA_HOST/${BONITA_HOST}/g" /var/lib/jmxtrans/bonita-jmx.json && sed -i "s/BONITA_PORT/${BONITA_PORT}/g" /var/lib/jmxtrans/bonita-jmx.json
 
 # Configure Supervisord, SSH and base env
 COPY supervisord/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
