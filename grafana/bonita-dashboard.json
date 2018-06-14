@@ -245,6 +245,7 @@
       "steppedLine": false,
       "targets": [
         {
+          "$$hashKey": "object:125",
           "alias": "Memory",
           "groupBy": [
             {
@@ -260,7 +261,7 @@
               "type": "fill"
             }
           ],
-          "measurement": "mem",
+          "measurement": "jvmMemory",
           "orderByTime": "ASC",
           "policy": "autogen",
           "refId": "A",
@@ -269,7 +270,7 @@
             [
               {
                 "params": [
-                  "used"
+                  "HeapMemoryUsage_used"
                 ],
                 "type": "field"
               },

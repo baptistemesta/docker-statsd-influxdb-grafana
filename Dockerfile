@@ -5,10 +5,8 @@ ENV DEBIAN_FRONTEND noninteractive
 ENV LANG C.UTF-8
 
 # Default versions
-ENV TELEGRAF_VERSION 1.6.2-1
 ENV INFLUXDB_VERSION 1.5.2
 ENV GRAFANA_VERSION  5.1.2
-ENV CHRONOGRAF_VERSION 1.5.0.1
 
 # Database Defaults
 ENV INFLUXDB_GRAFANA_DB datasource
@@ -55,7 +53,6 @@ RUN mkdir -p /var/log/supervisor && \
     rm -rf .profile && \
     mkdir .ssh
 
-COPY ssh/id_rsa .ssh/id_rsa
 COPY bash/profile .profile
 
 # Configure MySql
@@ -71,22 +68,10 @@ RUN wget https://dl.influxdata.com/influxdb/releases/influxdb_${INFLUXDB_VERSION
 COPY influxdb/influxdb.conf /etc/influxdb/influxdb.conf
 COPY influxdb/init.sh /etc/init.d/influxdb
 
-# Install Telegraf
-RUN wget https://dl.influxdata.com/telegraf/releases/telegraf_${TELEGRAF_VERSION}_amd64.deb && \
-	dpkg -i telegraf_${TELEGRAF_VERSION}_amd64.deb && rm telegraf_${TELEGRAF_VERSION}_amd64.deb
-
-# Configure Telegraf
-COPY telegraf/telegraf.conf /etc/telegraf/telegraf.conf
-COPY telegraf/init.sh /etc/init.d/telegraf
-
-# Install chronograf
-RUN wget https://dl.influxdata.com/chronograf/releases/chronograf_${CHRONOGRAF_VERSION}_amd64.deb && \
-  dpkg -i chronograf_${CHRONOGRAF_VERSION}_amd64.deb
 
 # Install Grafana
 RUN wget https://s3-us-west-2.amazonaws.com/grafana-releases/release/grafana_${GRAFANA_VERSION}_amd64.deb && \
 	dpkg -i grafana_${GRAFANA_VERSION}_amd64.deb && rm grafana_${GRAFANA_VERSION}_amd64.deb
-
 # Configure Grafana
 COPY grafana/grafana.ini /etc/grafana/grafana.ini
 COPY grafana/dashboard.yaml /etc/grafana/provisioning/dashboards/dashboard.yaml
