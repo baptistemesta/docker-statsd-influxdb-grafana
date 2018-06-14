@@ -91,6 +91,9 @@ RUN wget https://s3-us-west-2.amazonaws.com/grafana-releases/release/grafana_${G
 
 # Configure Grafana
 COPY grafana/grafana.ini /etc/grafana/grafana.ini
+COPY grafana/dashboard.yaml /etc/grafana/provisioning/dashboards/dashboard.yaml
+COPY grafana/datasource.yaml /etc/grafana/provisioning/datasources/datasource.yaml
+COPY grafana/bonita-dashboard.json /var/lib/grafana/dashboards/bonita-dashboard.json
 
 # Cleanup
 RUN apt-get clean && \
