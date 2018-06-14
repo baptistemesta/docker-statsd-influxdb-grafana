@@ -29,6 +29,19 @@
         "obj" : "Bonitasoft:type=Tenant,Tenant=1,name=works",
         "attr" : [ "Pendings","Runnings","Throughput","TotalExecuted" ],
         "resultAlias" : "worksTenant1"
+      },
+      {
+        "outputWriters" : [
+        {
+          "@class" : "com.googlecode.jmxtrans.model.output.InfluxDbWriterFactory",
+          "url" : "http://localhost:8086/",
+          "database" : "telegraf",
+          "username" : "telegraf",
+          "password" : "telegraf"
+        } ],
+        "obj" : "Bonitasoft:type=Tenant,Tenant=1,name=connectors",
+        "attr" : [ "Pendings","Runnings","Throughput","TotalExecuted" ],
+        "resultAlias" : "connectorsTenant1"
       }
       ],
       "numQueryThreads" : 1
